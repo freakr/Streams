@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Streams</string>
+    <string name="My_Update">Updater</string>
+    <string name="hello_world">Hey du Arsch</string>
+    <string name="action_settings">Menü</string>
+    <string name="table_title">Streams</string>
+    <string name="table_row_title_1">Serienname</string>
+    <string name="table_row_title_2">Seriennummer</string>
+    <string name="table_row_title_3">Staffel</string>
+    <string name="table_row_title_4">Episode</string>
+    <string name="table_row_title_5">Vorhanden</string>
+    <string name="table_row_title_6">Gesehen</string>
+    <string name="table_row_title_7">Link</string>
+    <string name="tabelle">Tabelle</string>
+    <string name="check_alle_folgen">Alle Folgen</string>
+    <string name="add">Hinzufügen</string>
+    <string name="serien">Serien</string>
+    <string name="dbupdate">Update</string>
+    <string name="delete">Löschen</string>
+    <string name="check_neue_folgen">Neue Folgen</string>
+    <string name="check_ungesehen">Noch nicht gesehen</string>
+    <string name="serie">Serie</string>
+	<string name="ansichten">Ansichten</string>
+	<string name="einstellungen">Einstellungen</string>
+</resources>

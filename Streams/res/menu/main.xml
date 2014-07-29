@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/action_ansichten"
+        android:orderInCategory="1"
+        android:title="@+string/ansichten"
+        android:showAsAction="never">
+    <menu>
+            <item
+        		android:id="@+id/action_home"
+        		android:title="@+string/check_alle_folgen"/>
+            <item
+        		android:id="@+id/action_check_neue_folgen"
+        		android:title="@+string/check_neue_folgen"/>
+            <item
+        		android:id="@+id/action_check_ungesehen"
+        		android:title="@+string/check_ungesehen"/>
+            
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_dbupdate"
+        android:orderInCategory="3"
+        android:title="@+string/dbupdate"
+        android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_serien"
+        android:orderInCategory="2"
+        android:title="@+string/serien"
+        android:showAsAction="never">
+        <menu>
+            <item
+        		android:id="@+id/action_add"
+        		android:title="@+string/add"/>
+            <item
+        		android:id="@+id/action_delete"
+        		android:title="@+string/delete"/>
+        </menu>
+    </item>
+	<item
+        android:id="@+id/action_einstellungen"
+        android:orderInCategory="4"
+        android:title="@+string/einstellungen"
+        android:showAsAction="never"/>
+    
+</menu>
