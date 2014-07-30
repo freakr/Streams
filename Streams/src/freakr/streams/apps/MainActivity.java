@@ -113,7 +113,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 		String start = setup
 				.get_Parameter(Streams_lib.PARAMETER_WINDOW);
 		set_liste(start);
-		new Thread(new Client(Streams_lib.DB_UPDATE_FULL, null)).start();
+		new Thread(new Client(Streams_lib.HOST,Streams_lib.DB_UPDATE_FULL, null)).start();
 	}
 
 	@Override
@@ -308,7 +308,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 																	Uri uriUrl = Uri
 																			.parse(link);
 																	new Thread(
-																			new Client(
+																			new Client(Streams_lib.HOST,
 																					Streams_lib.OPEN_LINK,
 																					link))
 																			.start();

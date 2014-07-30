@@ -20,8 +20,8 @@ public class Client implements Runnable,Streams_lib {
 	private int port;
 	private String value;
 	
-	public Client(String command,String value) {
-		this.host = HOST;
+	public Client(String host,String command,String value) {
+		this.host = host;
 		this.port = PORT;
 		this.command=command;
 		this.value = value;
