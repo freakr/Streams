@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -135,11 +134,7 @@ public class SysTray {
 		
 		return image;
 	}
-	private static String pad(String s, int length)
-	{
-	    while (s.length() < length) s = "0"+s;
-	    return s;
-	}
+	
 }
 	
 

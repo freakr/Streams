@@ -535,7 +535,7 @@ public static String ausgabe_link(String serie, int staffel,int episode) {
 	return rück;
 }
 
-@SuppressWarnings("null")
+
 static int[] ausgabe_serien_ids() {
 	int[] SAnzahl = new int[ausgabe_serien_anzahl()-1];
 	int zähler=0;

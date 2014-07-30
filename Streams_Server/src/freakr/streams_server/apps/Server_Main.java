@@ -7,7 +7,6 @@ public class Server_Main{
 
 	
 	public static void main(String[] args) {
-		String dummy;
 		ThreadPooledServer server = new ThreadPooledServer(15000);
 		SysTray st = new SysTray(server);
 		server.tray = st;
