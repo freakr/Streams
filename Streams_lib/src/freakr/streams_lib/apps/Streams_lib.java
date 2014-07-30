@@ -3,6 +3,8 @@ package freakr.streams_lib.apps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//Lib to work together
+
 public interface Streams_lib {
 	// Socket Commandos
 	public static final String CONNECTION_CLOSE = "Connection_Close";
