@@ -37,6 +37,7 @@ import freakr.streams_lib.apps.Streams_lib;
 
 public class MainActivity extends ActionBarActivity implements Streams_lib {
 
+	//Main Class
 	static boolean threadDBUStarted = false;
 	MyNotification MyNotify = new MyNotification(this);
 	static List<List> gesamtliste = new ArrayList();
@@ -45,7 +46,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	static ArrayList<String> spinnerepisoden = new ArrayList();
 	static String head = null;
 	static int days;
-
+	String dummy;
 	FragmentManager fm = getSupportFragmentManager();
 	static Context context;
 
