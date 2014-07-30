@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	static ArrayList<String> spinnerepisoden = new ArrayList();
 	static String head = null;
 	static int days;
-	String dummy;
 	FragmentManager fm = getSupportFragmentManager();
 	static Context context;
 

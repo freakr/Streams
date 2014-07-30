@@ -17,7 +17,8 @@ public interface Streams_lib {
 	public static final String REQUEST_URL = "Request_Url";
 	public static final String OPEN_LINK = "Open_Link";
 	// Socket Connection
-	public static final String HOST = "localhost";//freakr.spdns.de
+	public static final String LOCALHOST = "localhost";
+	public static final String HOST = "freakr.spdns.de";
 	public static final int PORT = 15000;
 	// Datenbank 
 	public static final String DB_FOLDER = "StreamsData/";
