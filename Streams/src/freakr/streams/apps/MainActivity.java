@@ -312,10 +312,8 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 																					Streams_lib.OPEN_LINK,
 																					link))
 																			.start();
-																	Intent launchBrowser = new Intent(
-																			Intent.ACTION_VIEW,
-																			uriUrl);
-																	startActivity(launchBrowser);
+																	//Intent launchBrowser = new Intent(Intent.ACTION_VIEW,uriUrl);
+																	//startActivity(launchBrowser);
 
 																}
 
