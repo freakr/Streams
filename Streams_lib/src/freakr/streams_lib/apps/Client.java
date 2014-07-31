@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -31,7 +32,7 @@ public class Client implements Runnable,Streams_lib {
 	public void run() {
 		Thread t = Thread.currentThread();
 	    t.setName("Client Thread");
-		Socket server;
+		Socket server = new Socket();
 		InetAddress ihost = null;
 		try {
 			ihost = InetAddress.getByName(host);
@@ -39,7 +40,7 @@ public class Client implements Runnable,Streams_lib {
 			System.out.println(e.getMessage());
 		}
 		try {
-			server = new Socket ( ihost, port );
+			server.connect(new InetSocketAddress( ihost, port),10000 );
 			BufferedReader input = new BufferedReader(new InputStreamReader(server.getInputStream()));
         	PrintWriter output = new PrintWriter(server.getOutputStream(), true);
 			output.println(CONNECTION_REQUEST);
