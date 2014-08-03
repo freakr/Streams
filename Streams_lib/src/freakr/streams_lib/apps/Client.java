@@ -26,7 +26,7 @@ public class Client implements Runnable,Streams_lib {
 	
 	public Client(Setup_Client_Android setup,String host,String command,String value) {
 		this.setup_android = setup;
-		this.host = "192.168.42.174";//host;
+		this.host = host;         //"192.168.42.174";
 		this.port = PORT;
 		this.command=command;
 		this.value = value;
@@ -35,7 +35,7 @@ public class Client implements Runnable,Streams_lib {
 	}
 	public Client(Setup_Server_PC setup,String host,String command,String value) {
 		this.setup_pc = setup;
-		this.host = "192.168.42.174";//host;
+		this.host = host;         //"192.168.42.174";
 		this.port = PORT;
 		this.command=command;
 		this.value = value;
