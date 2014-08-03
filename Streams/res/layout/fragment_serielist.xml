@@ -13,22 +13,37 @@
     android:scrollbars="horizontal|vertical"
     tools:context="freakr.streams.apps.MainActivity$ListFragment" >
 
-    <TextView
-        android:id="@+id/Head"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.20"
-        android:divider="#FFCC00"
-        android:dividerHeight="2dp"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3" >
+
+        <TextView
+            android:id="@+id/Head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:divider="#FFCC00"
+            android:dividerHeight="2dp"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/rBOnline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.20"
+            android:text="Online" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tVTage"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="0.2"
         android:divider="#FFCC00"
         android:dividerHeight="2dp"
         android:gravity="center"
@@ -38,6 +53,7 @@
         android:id="@+id/sTage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.3"
         android:gravity="right"
         android:textAlignment="gravity"
         tools:listitem="@android:layout/simple_spinner_dropdown_item" />
@@ -45,7 +61,8 @@
     <TextView
         android:id="@+id/tVZeit"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
         android:divider="#FFCC00"
         android:dividerHeight="2dp"
         android:gravity="center"
@@ -55,13 +72,15 @@
         android:id="@+id/sStaffel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.3"
         android:gravity="right"
         tools:listitem="@android:layout/simple_spinner_dropdown_item" />
 
     <TextView
         android:id="@+id/tVFenster"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
         android:divider="#FFCC00"
         android:dividerHeight="2dp"
         android:gravity="center"
@@ -71,6 +90,7 @@
         android:id="@+id/sFenster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.3"
         android:gravity="right"
         tools:listitem="@android:layout/simple_spinner_dropdown_item" />
 
@@ -79,6 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="0.2"
         android:gravity="center"
         android:text="Vorhanden" />
 
@@ -86,6 +107,7 @@
         android:id="@+id/cBGesehen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.2"
         android:gravity="center"
         android:text="Gesehen" />
 
@@ -93,6 +115,7 @@
         android:id="@+id/bLink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.2"
         android:text="Link" />
 
 </LinearLayout>

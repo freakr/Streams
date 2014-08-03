@@ -10,6 +10,7 @@ public interface Streams_lib {
 	public static final String CONNECTION_CLOSE = "Connection_Close";
 	public static final String CONNECTION_REQUEST = "Connection_Request";
 	public static final String CONNECTION_ACCEPTED = "Connection_Accepted";
+	public static final String CONNECTION_KEEP = "Connection_Keep";
 	public static final String DB_UPDATE_FULL = "DB_Full_Update";
 	public static final String ACTION_COMPLETE = "Action_Complete";
 	public static final String FILE_COMPLETE = "File_Complete";
@@ -29,15 +30,18 @@ public interface Streams_lib {
 	public final static String NOCH_NICHT_GESEHEN_FOLGEN = "Noch nicht gesehen";
 	public final static String EINSTELLUNGEN = "Einstellungen";
 	// Client Parameter
+	final static String ONLINESTATUS = "Onlinestatus";
+	final static String ONLINESTATUS_ON = "On";
+	final static String ONLINESTATUS_OFF = "Off";
 	final static String PARAMETER_NEU_TAGE = "STREAMS_NEU_TAGE";
 	final static String PARAMETER_UPDATE_ZEIT = "STREAMS_UPDATE_ZEIT";
 	final static String PARAMETER_WINDOW = "STREAMS_DEFAULT_WINDOW";
 	final static String PARAMETER_IP = "STREAMS_IP";
-	final static String PARAMETER_C2DM_REG = "REGISTRATION_KEY";
 	final static String MYAPP = "STREAMS";
 	final static String DEFAULT_NEU_TAGE = "7";
 	final static String DEFAULT_UPDATE_ZEIT = "00:01:00"; // = 00-Tage:01-Stunden:00-Minuten
 	final static String DEFAULT_WINDOW = NOCH_NICHT_GESEHEN_FOLGEN;
 	final static ArrayList<String> TAGELISTE = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","14","30"));
 	final static ArrayList<String> FENSTERLISTE = new ArrayList<String>(Arrays.asList(NOCH_NICHT_GESEHEN_FOLGEN,NEUE_FOLGEN,ALLE_FOLGEN));
+	
 }

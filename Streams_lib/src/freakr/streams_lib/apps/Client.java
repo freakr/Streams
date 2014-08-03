@@ -12,27 +12,28 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import freakr.streams_lib.apps.Streams_lib;
-
 public class Client implements Runnable,Streams_lib {
 
+	
 	public String command;
 	private String host;
 	private int port;
 	private String value;
+	private Setup_Client_Android setup;
 	
-	public Client(String host,String command,String value) {
-		this.host = host;
+	public Client(Setup_Client_Android setup,String host,String command,String value) {
+		this.setup = setup;
+		this.host = "192.168.42.174";//host;
 		this.port = PORT;
 		this.command=command;
 		this.value = value;
 	}
-
+	
 	@Override
 	public void run() {
 		Thread t = Thread.currentThread();
 	    t.setName("Client Thread");
-		Socket server = new Socket();
+	    Socket server = new Socket();
 		InetAddress ihost = null;
 		try {
 			ihost = InetAddress.getByName(host);
@@ -48,6 +49,16 @@ public class Client implements Runnable,Streams_lib {
             while((line = input.readLine())!=null){
             	System.out.println(line);
             	switch(line){
+            	case CONNECTION_KEEP:
+            		try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+            			//setup.set_Parameter(ONLINESTATUS, ONLINESTATUS_ON);
+            			output.println(CONNECTION_KEEP);
+            		//break;
             	case CONNECTION_CLOSE:
             		output.println(line);
             		server.shutdownInput();
@@ -130,6 +141,7 @@ public class Client implements Runnable,Streams_lib {
             	}
             }  
 		} catch (IOException e) {
+			setup.set_Parameter(ONLINESTATUS, ONLINESTATUS_OFF);
 			System.out.println(e.getMessage());
 		}
 		

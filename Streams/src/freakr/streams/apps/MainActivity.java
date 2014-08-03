@@ -2,13 +2,13 @@ package freakr.streams.apps;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import mei.app.streams.R;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import freakr.streams_lib.apps.Client;
@@ -47,7 +48,9 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	static String head = null;
 	static int days;
 	FragmentManager fm = getSupportFragmentManager();
+	static RadioButton rbutton;
 	static Context context;
+	static int MTCA = 0;
 
 	final static Setup_Client_Android setup = new Setup_Client_Android();
 
@@ -110,10 +113,11 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 		days = Integer.parseInt(setup
 				.get_Parameter(Streams_lib.PARAMETER_NEU_TAGE));
 		setContentView(R.layout.activity_main);
-		String start = setup
-				.get_Parameter(Streams_lib.PARAMETER_WINDOW);
+		String start = setup.get_Parameter(Streams_lib.PARAMETER_WINDOW);
 		set_liste(start);
-		new Thread(new Client(Streams_lib.HOST,Streams_lib.DB_UPDATE_FULL, null)).start();
+		
+		new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.CONNECTION_KEEP, null)).start();
+		new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.DB_UPDATE_FULL, null)).start();
 	}
 
 	@Override
@@ -218,6 +222,11 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 					container, false);
 			final Context con = container.getContext();
 			TextView kopf = (TextView) rootView.findViewById(R.id.Head);
+			rbutton = (RadioButton) rootView.findViewById(R.id.rBOnline);
+			if(MTCA == 0){
+				new Thread(new Connection_Alive(rbutton,setup)).start();
+				MTCA = 1;
+			}
 			kopf.setText(head);
 			final ArrayList<String> ListeSerie = spinnerserie;
 			ArrayAdapter<String> AdapterSerie = new ArrayAdapter<String>(con,
@@ -308,7 +317,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 																	Uri uriUrl = Uri
 																			.parse(link);
 																	new Thread(
-																			new Client(Streams_lib.HOST,
+																			new Client(setup,Streams_lib.HOST,
 																					Streams_lib.OPEN_LINK,
 																					link))
 																			.start();
