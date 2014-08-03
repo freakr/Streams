@@ -15,24 +15,36 @@ import java.net.UnknownHostException;
 public class Client implements Runnable,Streams_lib {
 
 	
+	
 	public String command;
 	private String host;
 	private int port;
 	private String value;
-	private Setup_Client_Android setup;
+	private Setup_Client_Android setup_android;
+	private Setup_Server_PC setup_pc;
+	private int setup_choice;
 	
 	public Client(Setup_Client_Android setup,String host,String command,String value) {
-		this.setup = setup;
+		this.setup_android = setup;
 		this.host = "192.168.42.174";//host;
 		this.port = PORT;
 		this.command=command;
 		this.value = value;
+		this.setup_choice = 1;
+		
 	}
-	
+	public Client(Setup_Server_PC setup,String host,String command,String value) {
+		this.setup_pc = setup;
+		this.host = "192.168.42.174";//host;
+		this.port = PORT;
+		this.command=command;
+		this.value = value;
+		this.setup_choice = 2;
+	}
 	@Override
 	public void run() {
 		Thread t = Thread.currentThread();
-	    t.setName("Client Thread");
+	    t.setName(command+" - Thread");
 	    Socket server = new Socket();
 		InetAddress ihost = null;
 		try {
@@ -45,20 +57,29 @@ public class Client implements Runnable,Streams_lib {
 			BufferedReader input = new BufferedReader(new InputStreamReader(server.getInputStream()));
         	PrintWriter output = new PrintWriter(server.getOutputStream(), true);
 			output.println(CONNECTION_REQUEST);
-			String line ;  
+			String line;  
             while((line = input.readLine())!=null){
             	System.out.println(line);
             	switch(line){
             	case CONNECTION_KEEP:
             		try {
-						Thread.sleep(1000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-            			//setup.set_Parameter(ONLINESTATUS, ONLINESTATUS_ON);
-            			output.println(CONNECTION_KEEP);
-            		//break;
+            		switch(setup_choice){
+    				case 1:
+    					setup_android.set_Parameter(ONLINESTATUS, ONLINESTATUS_ON);
+    					System.out.println(setup_android.get_Parameter(ONLINESTATUS));
+    					break;
+    				case 2:
+    					setup_pc.set_Parameter(ONLINESTATUS, ONLINESTATUS_ON);
+    					System.out.println(setup_pc.get_Parameter(ONLINESTATUS));
+    					break;
+    				}	
+            		output.println(CONNECTION_KEEP);
+            		break;
             	case CONNECTION_CLOSE:
             		output.println(line);
             		server.shutdownInput();
@@ -141,7 +162,25 @@ public class Client implements Runnable,Streams_lib {
             	}
             }  
 		} catch (IOException e) {
-			setup.set_Parameter(ONLINESTATUS, ONLINESTATUS_OFF);
+			
+			if(command.equals(CONNECTION_KEEP)){
+				switch(setup_choice){
+				case 1:
+					setup_android.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_NOT_RUNNING);
+					System.out.println(setup_android.get_Parameter(ONLINE_THREAD));
+					setup_android.set_Parameter(ONLINESTATUS, ONLINESTATUS_OFF);
+					System.out.println(setup_android.get_Parameter(ONLINESTATUS));
+				break;
+				case 2:
+					setup_pc.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_NOT_RUNNING);
+					System.out.println(setup_pc.get_Parameter(ONLINE_THREAD));
+					setup_pc.set_Parameter(ONLINESTATUS, ONLINESTATUS_OFF);
+					System.out.println(setup_pc.get_Parameter(ONLINESTATUS));
+					break;
+				}
+				
+				
+			}
 			System.out.println(e.getMessage());
 		}
 		
