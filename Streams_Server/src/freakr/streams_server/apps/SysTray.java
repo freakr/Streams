@@ -56,7 +56,8 @@ public class SysTray {
             public void actionPerformed(ActionEvent e) {
         		System.out.println("Stopping Server");
         		update("S");
-        		server.stop();		
+        		server.stop();
+        		
             }
 
         };

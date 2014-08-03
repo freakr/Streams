@@ -1,7 +1,6 @@
 package freakr.streams.apps;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.widget.RadioButton;
 import freakr.streams_lib.apps.Setup_Client_Android;
 import freakr.streams_lib.apps.Streams_lib;
@@ -15,6 +14,7 @@ public class Connection_Alive implements Runnable,Streams_lib{
 	public Connection_Alive(RadioButton rbutton, Setup_Client_Android setup) {
 		this.setup = setup;
 		this.rbutton = rbutton;
+		
 	}
 
 	@Override
@@ -29,12 +29,17 @@ public class Connection_Alive implements Runnable,Streams_lib{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_ON)){
+			try {
+				if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_ON)){
 				rbutton.setChecked(true);
-			}
-			if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_OFF)){
+				}
+				if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_OFF)){
 				rbutton.setChecked(false);
 			}
+			} catch (Exception e){
+				System.out.println(e.getMessage()) ;
+			}
+			
 		}
 	}
 }
