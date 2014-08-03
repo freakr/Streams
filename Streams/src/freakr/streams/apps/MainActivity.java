@@ -1,5 +1,6 @@
 package freakr.streams.apps;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -50,8 +51,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	FragmentManager fm = getSupportFragmentManager();
 	static RadioButton rbutton;
 	static Context context;
-	static int MTCA = 0;
-
+	static int Connection_Alive_Flag = 0;
 	final static Setup_Client_Android setup = new Setup_Client_Android();
 
 	void set_liste(final String x) {
@@ -115,9 +115,33 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 		setContentView(R.layout.activity_main);
 		String start = setup.get_Parameter(Streams_lib.PARAMETER_WINDOW);
 		set_liste(start);
-		
-		new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.CONNECTION_KEEP, null)).start();
-		new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.DB_UPDATE_FULL, null)).start();
+		Thread Online_Thread = new Thread(new Runnable() {
+			
+	        public void run() {
+	            Thread t1 = Thread.currentThread();
+	            t1.setName("CONNECTION_KEEP Thread");
+	            Setup_Client_Android setup = new Setup_Client_Android();
+	            setup.Create(context);
+	            setup.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_NOT_RUNNING);
+	            System.out.println(setup.get_Parameter(ONLINE_THREAD));
+	            while(true){
+	            	if(setup.get_Parameter(ONLINE_THREAD).equals(ONLINE_THREAD_NOT_RUNNING)){
+	            		setup.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_RUNNING);
+	            		new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.CONNECTION_KEEP, null)).start();
+	            	}
+	            	
+	            	try {
+						Thread.sleep(11000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	            	
+	            }
+	        }
+	    });
+		Online_Thread.start();
+		//new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.DB_UPDATE_FULL, null)).start();
 	}
 
 	@Override
@@ -223,9 +247,9 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 			final Context con = container.getContext();
 			TextView kopf = (TextView) rootView.findViewById(R.id.Head);
 			rbutton = (RadioButton) rootView.findViewById(R.id.rBOnline);
-			if(MTCA == 0){
+			if(Connection_Alive_Flag == 0){
 				new Thread(new Connection_Alive(rbutton,setup)).start();
-				MTCA = 1;
+				Connection_Alive_Flag = 1;
 			}
 			kopf.setText(head);
 			final ArrayList<String> ListeSerie = spinnerserie;

@@ -36,7 +36,7 @@ public class WorkerRunnable implements Runnable,Streams_lib{
             	switch(line){
             	case CONNECTION_KEEP:
             		try {
-						Thread.sleep(1000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();

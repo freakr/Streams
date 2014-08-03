@@ -30,6 +30,9 @@ public interface Streams_lib {
 	public final static String NOCH_NICHT_GESEHEN_FOLGEN = "Noch nicht gesehen";
 	public final static String EINSTELLUNGEN = "Einstellungen";
 	// Client Parameter
+	static final String ONLINE_THREAD = "Online_Thread";
+	static final String ONLINE_THREAD_NOT_RUNNING = "not_running";
+	static final String ONLINE_THREAD_RUNNING = "running";
 	final static String ONLINESTATUS = "Onlinestatus";
 	final static String ONLINESTATUS_ON = "On";
 	final static String ONLINESTATUS_OFF = "Off";
