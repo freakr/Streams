@@ -34,6 +34,16 @@ public class WorkerRunnable implements Runnable,Streams_lib{
             while( (line = input.readLine())!=null){
             	System.out.println(line);
             	switch(line){
+            	case CONNECTION_KEEP:
+            		try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+            		//tray.update("C");
+            		output.println(CONNECTION_KEEP);
+            		break;
             	case CONNECTION_CLOSE:
             		output.close();
             		input.close();
@@ -113,12 +123,17 @@ public class WorkerRunnable implements Runnable,Streams_lib{
             	    output.println(ACTION_COMPLETE);
             		break;
             	default :
+            		output.close();
+            		input.close();
+            		tray.update("A");
             		output.println(CONNECTION_CLOSE);
                 	break;
             	}
             }  
         } catch (IOException e) {
+        	tray.update("A");
         	System.out.println(e.getMessage());
+        	e.printStackTrace();
         }
     }
 }
