@@ -1,9 +1,7 @@
 package freakr.streams.apps;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import mei.app.streams.R;
 import android.annotation.SuppressLint;
@@ -247,10 +245,18 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 			final Context con = container.getContext();
 			TextView kopf = (TextView) rootView.findViewById(R.id.Head);
 			rbutton = (RadioButton) rootView.findViewById(R.id.rBOnline);
+			
 			if(Connection_Alive_Flag == 0){
-				new Thread(new Connection_Alive(rbutton,setup)).start();
+				//new Thread(new Connection_Alive(rbutton,setup)).start();
+				rbutton.setClickable(false);
+				Connection_Alive_Task C_A_Task = new Connection_Alive_Task(rbutton,setup);
+				C_A_Task.execute();
+				
 				Connection_Alive_Flag = 1;
 			}
+			
+			
+			
 			kopf.setText(head);
 			final ArrayList<String> ListeSerie = spinnerserie;
 			ArrayAdapter<String> AdapterSerie = new ArrayAdapter<String>(con,
@@ -406,7 +412,8 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 
 			return rootView;
 		}
-
+		
+		
 	}
 
 	// Add app running notification
