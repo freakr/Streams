@@ -1,9 +1,7 @@
 package freakr.streams.apps;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import mei.app.streams.R;
 import android.annotation.SuppressLint;
@@ -247,10 +245,44 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 			final Context con = container.getContext();
 			TextView kopf = (TextView) rootView.findViewById(R.id.Head);
 			rbutton = (RadioButton) rootView.findViewById(R.id.rBOnline);
-			if(Connection_Alive_Flag == 0){
-				new Thread(new Connection_Alive(rbutton,setup)).start();
-				Connection_Alive_Flag = 1;
+			new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Thread t = Thread.currentThread();
+				t.setName("Connection_Alive Thread");
+				rbutton.setClickable(false);
+				while(true){
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_ON)){
+						rbutton.setChecked(true);
+						}
+						if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_OFF)){
+						rbutton.setChecked(false);
+					}
+					} catch (Exception e){
+						System.out.println(e.getMessage()) ;
+					}
+					
+				}
 			}
+			
+			}).start();
+			
+			
+			//if(Connection_Alive_Flag == 0){
+				//new Thread(new Connection_Alive(rbutton,setup)).start();
+				//Connection_Alive_Flag = 1;
+			//}
+			
+			
+			
 			kopf.setText(head);
 			final ArrayList<String> ListeSerie = spinnerserie;
 			ArrayAdapter<String> AdapterSerie = new ArrayAdapter<String>(con,
