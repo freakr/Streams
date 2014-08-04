@@ -245,41 +245,15 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 			final Context con = container.getContext();
 			TextView kopf = (TextView) rootView.findViewById(R.id.Head);
 			rbutton = (RadioButton) rootView.findViewById(R.id.rBOnline);
-			new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				Thread t = Thread.currentThread();
-				t.setName("Connection_Alive Thread");
-				rbutton.setClickable(false);
-				while(true){
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_ON)){
-						rbutton.setChecked(true);
-						}
-						if(setup.get_Parameter(ONLINESTATUS).equals (ONLINESTATUS_OFF)){
-						rbutton.setChecked(false);
-					}
-					} catch (Exception e){
-						System.out.println(e.getMessage()) ;
-					}
-					
-				}
-			}
 			
-			}).start();
-			
-			
-			//if(Connection_Alive_Flag == 0){
+			if(Connection_Alive_Flag == 0){
 				//new Thread(new Connection_Alive(rbutton,setup)).start();
-				//Connection_Alive_Flag = 1;
-			//}
+				rbutton.setClickable(false);
+				Connection_Alive_Task C_A_Task = new Connection_Alive_Task(rbutton,setup);
+				C_A_Task.execute();
+				
+				Connection_Alive_Flag = 1;
+			}
 			
 			
 			
@@ -438,7 +412,8 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 
 			return rootView;
 		}
-
+		
+		
 	}
 
 	// Add app running notification
