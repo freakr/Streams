@@ -12,17 +12,22 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import freakr.streams_lib.apps.Setup_Server_PC;
 import freakr.streams_lib.apps.Streams_lib;
 
 public class WorkerRunnable implements Runnable,Streams_lib{
 
     protected Socket clientSocket = null;
     private SysTray tray;
+	private Setup_Server_PC setup;
     
 
-    public WorkerRunnable(Socket clientSocket, SysTray tray) {
+    public WorkerRunnable(Socket clientSocket, SysTray tray, Setup_Server_PC setup) {
         this.clientSocket = clientSocket;
         this.tray   = tray;
+        this.setup = setup;
+        this.tray.clientip = clientSocket.getLocalSocketAddress();
+        tray.update("C");
     }
 
     public void run() {
@@ -33,25 +38,27 @@ public class WorkerRunnable implements Runnable,Streams_lib{
         	
             while( (line = input.readLine())!=null){
             	System.out.println(line);
+            	String serverstatus = setup.get_Parameter(SERVERSTATUS);
+            	if (serverstatus.equals(SERVERSTATUS_OFF)){
+            		line = CONNECTION_CLOSE;
+            	}
             	switch(line){
             	case CONNECTION_KEEP:
             		try {
-						Thread.sleep(10000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
-            		//tray.update("C");
             		output.println(CONNECTION_KEEP);
             		break;
             	case CONNECTION_CLOSE:
+            		output.println(CONNECTION_CLOSE);
             		output.close();
             		input.close();
-            		tray.update("A");
             		break;
             	case CONNECTION_REQUEST:
             		output.println(CONNECTION_ACCEPTED);
-            		tray.update("C");
             		break;
             	case OPEN_LINK:
             		output.println(REQUEST_URL);
@@ -125,7 +132,6 @@ public class WorkerRunnable implements Runnable,Streams_lib{
             	default :
             		output.close();
             		input.close();
-            		tray.update("A");
             		output.println(CONNECTION_CLOSE);
                 	break;
             	}
@@ -133,7 +139,7 @@ public class WorkerRunnable implements Runnable,Streams_lib{
         } catch (IOException e) {
         	tray.update("A");
         	System.out.println(e.getMessage());
-        	e.printStackTrace();
+        	//e.printStackTrace();
         }
     }
 }

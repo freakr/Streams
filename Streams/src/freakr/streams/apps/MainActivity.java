@@ -139,7 +139,6 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	        }
 	    });
 		Online_Thread.start();
-		//new Thread(new Client(setup,Streams_lib.HOST,Streams_lib.DB_UPDATE_FULL, null)).start();
 	}
 
 	@Override
@@ -247,15 +246,11 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 			rbutton = (RadioButton) rootView.findViewById(R.id.rBOnline);
 			
 			if(Connection_Alive_Flag == 0){
-				//new Thread(new Connection_Alive(rbutton,setup)).start();
 				rbutton.setClickable(false);
 				Connection_Alive_Task C_A_Task = new Connection_Alive_Task(rbutton,setup);
 				C_A_Task.execute();
-				
 				Connection_Alive_Flag = 1;
 			}
-			
-			
 			
 			kopf.setText(head);
 			final ArrayList<String> ListeSerie = spinnerserie;
