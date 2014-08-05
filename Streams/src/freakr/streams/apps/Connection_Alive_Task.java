@@ -26,7 +26,7 @@ public class Connection_Alive_Task extends AsyncTask<Void, String, Void> impleme
 		
 		while(true){
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -63,7 +63,7 @@ public class Client implements Runnable,Streams_lib {
             	switch(line){
             	case CONNECTION_KEEP:
             		try {
-						Thread.sleep(10000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -85,6 +85,24 @@ public class Client implements Runnable,Streams_lib {
             		server.shutdownInput();
             		server.shutdownOutput();
             		server.close();
+            		if(command.equals(CONNECTION_KEEP) ){
+        				switch(setup_choice){
+        				case 1:
+        					setup_android.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_NOT_RUNNING);
+        					System.out.println(setup_android.get_Parameter(ONLINE_THREAD));
+        					setup_android.set_Parameter(ONLINESTATUS, ONLINESTATUS_OFF);
+        					System.out.println(setup_android.get_Parameter(ONLINESTATUS));
+        				break;
+        				case 2:
+        					setup_pc.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_NOT_RUNNING);
+        					System.out.println(setup_pc.get_Parameter(ONLINE_THREAD));
+        					setup_pc.set_Parameter(ONLINESTATUS, ONLINESTATUS_OFF);
+        					System.out.println(setup_pc.get_Parameter(ONLINESTATUS));
+        					break;
+        				}
+        				
+        				
+        			}
             		break;
             	case REQUEST_URL:
             		output.println(value);
@@ -163,7 +181,7 @@ public class Client implements Runnable,Streams_lib {
             }  
 		} catch (IOException e) {
 			
-			if(command.equals(CONNECTION_KEEP)){
+			if(command.equals(CONNECTION_KEEP) ){
 				switch(setup_choice){
 				case 1:
 					setup_android.set_Parameter(ONLINE_THREAD, ONLINE_THREAD_NOT_RUNNING);

@@ -36,6 +36,9 @@ public interface Streams_lib {
 	final static String ONLINESTATUS = "Onlinestatus";
 	final static String ONLINESTATUS_ON = "On";
 	final static String ONLINESTATUS_OFF = "Off";
+	final static String SERVERSTATUS = "Serverstatus";
+	final static String SERVERSTATUS_ON = "On";
+	final static String SERVERSTATUS_OFF = "Off";
 	final static String PARAMETER_NEU_TAGE = "STREAMS_NEU_TAGE";
 	final static String PARAMETER_UPDATE_ZEIT = "STREAMS_UPDATE_ZEIT";
 	final static String PARAMETER_WINDOW = "STREAMS_DEFAULT_WINDOW";

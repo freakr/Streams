@@ -11,6 +11,8 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.net.InetAddress;
+import java.net.SocketAddress;
 
 
 public class SysTray {
@@ -18,6 +20,7 @@ public class SysTray {
 	TrayIcon trayIcon = null;
 	final static Image IMAGE_START = set_image("A");//Toolkit.getDefaultToolkit().getImage(Server_Main.class.getResource("/S.png"));
 	ThreadPooledServer server;
+	public SocketAddress clientip;
 	
 	public SysTray(ThreadPooledServer server) {
 		this.server = server ;
@@ -115,7 +118,7 @@ public class SysTray {
 			trayIcon.setImageAutoSize(true);
 			trayIcon.setImage(image);
 			if (status.equals("C")){
-				trayIcon.setToolTip("Streams_Server : Lokale IP = "+String.valueOf(server.serverSocket.getLocalSocketAddress()));
+				trayIcon.setToolTip("Streams_Server : linked to IP = "+String.valueOf(clientip));
 			}else
 			{
 			trayIcon.setToolTip("Streams_Server");
