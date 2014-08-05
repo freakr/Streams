@@ -29,10 +29,11 @@ public class ThreadPooledServer implements Runnable{
             Socket clientSocket = null;
             try {
                 clientSocket = this.serverSocket.accept();
+                clientSocket.setSoLinger(true, 0);
             } catch (IOException e) {
                 if(isStopped()) {
-                	this.threadPool.shutdown();
-                    System.out.println("Server Stopped.") ;
+                	this.threadPool.shutdownNow();
+                	System.out.println("Server Stopped.") ;
                     return;
                 }
                 throw new RuntimeException(
@@ -42,6 +43,7 @@ public class ThreadPooledServer implements Runnable{
             this.threadPool.execute(
                 new WorkerRunnable(clientSocket,tray));
         }
+       
         this.threadPool.shutdownNow();
         System.out.println("Server Stopped.") ;
     }
@@ -54,8 +56,8 @@ public class ThreadPooledServer implements Runnable{
     public synchronized void stop(){
         this.isStopped = true;
         try {
-            this.serverSocket.close();
             this.serverSocket.setSoTimeout(2);
+            this.serverSocket.close();
             tray.update("I");
         } catch (IOException e) {
             throw new RuntimeException("Error closing server", e);

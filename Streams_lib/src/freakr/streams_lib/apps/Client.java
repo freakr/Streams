@@ -63,7 +63,7 @@ public class Client implements Runnable,Streams_lib {
             	switch(line){
             	case CONNECTION_KEEP:
             		try {
-						Thread.sleep(10000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
