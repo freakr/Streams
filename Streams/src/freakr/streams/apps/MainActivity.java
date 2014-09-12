@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -87,6 +88,8 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 		super.onCreate(savedInstanceState);
 		Thread t = Thread.currentThread();
 		t.setName("Main Thread");
+		WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+		wifiManager.setWifiEnabled(false);
 		Datenbank DB = new Datenbank();
 		DB.initialisiern_datenbank();
 		context = getApplicationContext();
@@ -140,7 +143,37 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	    });
 		Online_Thread.start();
 	}
+	@Override
+    public void onPause()
+    {
+        super.onPause();
+        WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+		wifiManager.setWifiEnabled(true);
+    }
 
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+		wifiManager.setWifiEnabled(true);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+		wifiManager.setWifiEnabled(true);
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+		wifiManager.setWifiEnabled(false);
+    }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
