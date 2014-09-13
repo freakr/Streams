@@ -7,10 +7,16 @@ import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketAddress;
 
@@ -21,6 +27,7 @@ public class SysTray {
 	final static Image IMAGE_START = set_image("A");//Toolkit.getDefaultToolkit().getImage(Server_Main.class.getResource("/S.png"));
 	ThreadPooledServer server;
 	public SocketAddress clientip;
+	public String seriename;
 	
 	public SysTray(ThreadPooledServer server) {
 		this.server = server ;
@@ -35,6 +42,34 @@ public class SysTray {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
         	}
+
+        };
+        ActionListener add_serie = new ActionListener() {
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+        		Clipboard systemClipboard;
+        	    systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard(); 
+        	    Transferable transferData = systemClipboard.getContents( null ); 
+        	    for(DataFlavor dataFlavor : transferData.getTransferDataFlavors()){ 
+        	      Object content = new Object();
+				try {
+					content = transferData.getTransferData( dataFlavor );
+				} catch (UnsupportedFlavorException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+        	      if ( content instanceof String ) 
+        	      { 
+        	        System.out.println( content );
+        	        seriename = (String) content;
+        	        break;
+        	      }
+        	    }
+        	  }
+        	
 
         };
         ActionListener serverstart = new ActionListener() {
@@ -58,7 +93,7 @@ public class SysTray {
         	@Override
             public void actionPerformed(ActionEvent e) {
         		System.out.println("Stopping Server");
-        		update("S");
+        		update("I");
         		server.stop();
         		
             }
@@ -68,12 +103,18 @@ public class SysTray {
         MenuItem sstopItem = new MenuItem();
         sstopItem.addActionListener(serverstop);
         sstopItem.setLabel("Server-Stop");
+        
+        MenuItem addserieItem = new MenuItem();
+        addserieItem.addActionListener(add_serie);
+        addserieItem.setLabel("Add Serie");
+        
         MenuItem sstartItem = new MenuItem();
         sstartItem.addActionListener(serverstart);
         sstartItem.setLabel("Server-(Re)-Start");
         MenuItem endItem = new MenuItem();
         endItem.addActionListener(beenden);
         endItem.setLabel("Streams_Server Beenden");
+        popup.add(addserieItem);
         popup.add(sstopItem);
         popup.add(sstartItem);
         popup.add(endItem);

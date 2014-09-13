@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import freakr.streams_lib.apps.Setup_Server_PC;
 import freakr.streams_lib.apps.Streams_lib;
@@ -50,7 +51,11 @@ public class WorkerRunnable implements Runnable,Streams_lib{
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
-            		output.println(CONNECTION_KEEP);
+            		if(tray.seriename!=null){
+            			output.println(GET_NEW_SERIE);
+            		}else{
+            			output.println(CONNECTION_KEEP);
+            		}
             		break;
             	case CONNECTION_CLOSE:
             		output.println(CONNECTION_CLOSE);
@@ -80,6 +85,11 @@ public class WorkerRunnable implements Runnable,Streams_lib{
 						System.out.println(e1.getMessage());
 					}
 					output.println(ACTION_COMPLETE);
+            		break;
+            	case GET_NEW_SERIE:
+            		output.println(GET_SERIE);
+            		output.println(tray.seriename);
+            		
             		break;
             	case DB_UPDATE_FULL:
             		output.println(REQUEST_DB_FILES);

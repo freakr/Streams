@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 	static Context context;
 	static int Connection_Alive_Flag = 0;
 	final static Setup_Client_Android setup = new Setup_Client_Android();
+	final static Datenbank DB = new Datenbank();
 
 	void set_liste(final String x) {
 		android.support.v4.app.FragmentTransaction transaction = fm
@@ -90,7 +91,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 		t.setName("Main Thread");
 		WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
 		wifiManager.setWifiEnabled(false);
-		Datenbank DB = new Datenbank();
+		
 		DB.initialisiern_datenbank();
 		context = getApplicationContext();
 		setup.Create(getApplicationContext());
@@ -375,8 +376,7 @@ public class MainActivity extends ActionBarActivity implements Streams_lib {
 																	Uri uriUrl = Uri
 																			.parse(link);
 																	new Thread(
-																			new Client(setup,Streams_lib.HOST,
-																					Streams_lib.OPEN_LINK,
+																			new Client(setup,Streams_lib.HOST,Streams_lib.OPEN_LINK,
 																					link))
 																			.start();
 																	//Intent launchBrowser = new Intent(Intent.ACTION_VIEW,uriUrl);

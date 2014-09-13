@@ -36,19 +36,20 @@ public class ThreadPooledServer implements Runnable,Streams_lib{
                 clientSocket = this.serverSocket.accept();
             } catch (IOException e) {
                 if(isStopped()) {
-                	tray.update("S");
                 	this.threadPool.shutdown();
                     System.out.println("Server Stopped.") ;
+                    tray.update(setup.get_Parameter(SERVERSTATUS));
                     return;
                 }
                 throw new RuntimeException(
                     "Error accepting client connection", e);
             }
-            
+            tray.clientip = clientSocket.getLocalSocketAddress();
+            tray.update("C");
             this.threadPool.execute(
                 new WorkerRunnable(clientSocket,tray,setup));
         }
-        tray.update("S");
+        tray.update(setup.get_Parameter(SERVERSTATUS));
         this.threadPool.shutdownNow();
         System.out.println("Server Stopped.") ;
     }
@@ -64,7 +65,7 @@ public class ThreadPooledServer implements Runnable,Streams_lib{
             this.serverSocket.close();
             setup.set_Parameter(SERVERSTATUS, SERVERSTATUS_OFF);
             System.out.println(setup.get_Parameter(SERVERSTATUS));
-            tray.update("S");
+            tray.update(setup.get_Parameter(SERVERSTATUS));
         } catch (IOException e) {
             throw new RuntimeException("Error closing server", e);
         }
@@ -74,7 +75,8 @@ public class ThreadPooledServer implements Runnable,Streams_lib{
         try {
             this.serverSocket = new ServerSocket(this.serverPort);
             setup.set_Parameter(SERVERSTATUS, SERVERSTATUS_ON);
-            tray.update("A");
+            System.out.println(setup.get_Parameter(SERVERSTATUS));
+            tray.update(setup.get_Parameter(SERVERSTATUS));
         } catch (IOException e) {
             throw new RuntimeException("Cannot open port 9000", e);
         }

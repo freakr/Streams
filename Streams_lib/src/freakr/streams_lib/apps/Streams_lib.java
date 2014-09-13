@@ -17,6 +17,8 @@ public interface Streams_lib {
 	public static final String REQUEST_DB_FILES = "Request_DB_Files";
 	public static final String REQUEST_URL = "Request_Url";
 	public static final String OPEN_LINK = "Open_Link";
+	public static final String GET_NEW_SERIE = "Get_New_Serie";
+	public static final String GET_SERIE = "Get_Serie";
 	// Socket Connection
 	public static final String LOCALHOST = "localhost";
 	public static final String HOST = "freakr.spdns.de";
@@ -37,8 +39,8 @@ public interface Streams_lib {
 	final static String ONLINESTATUS_ON = "On";
 	final static String ONLINESTATUS_OFF = "Off";
 	final static String SERVERSTATUS = "Serverstatus";
-	final static String SERVERSTATUS_ON = "On";
-	final static String SERVERSTATUS_OFF = "Off";
+	final static String SERVERSTATUS_ON = "A";
+	final static String SERVERSTATUS_OFF = "I";
 	final static String PARAMETER_NEU_TAGE = "STREAMS_NEU_TAGE";
 	final static String PARAMETER_UPDATE_ZEIT = "STREAMS_UPDATE_ZEIT";
 	final static String PARAMETER_WINDOW = "STREAMS_DEFAULT_WINDOW";

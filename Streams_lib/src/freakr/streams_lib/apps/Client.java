@@ -12,6 +12,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import android.net.Uri;
+
 public class Client implements Runnable,Streams_lib {
 
 	
@@ -62,6 +64,7 @@ public class Client implements Runnable,Streams_lib {
             	System.out.println(line);
             	switch(line){
             	case CONNECTION_KEEP:
+            		
             		try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -106,6 +109,25 @@ public class Client implements Runnable,Streams_lib {
             		break;
             	case REQUEST_URL:
             		output.println(value);
+            		break;
+            	case GET_NEW_SERIE:
+            		switch(setup_choice){
+    				case 1:
+    					new Thread(new Client(setup_android,LOCALHOST,line, null)).start();
+    					output.println(CONNECTION_KEEP);
+    					break;
+    				case 2:
+    					new Thread(new Client(setup_pc,LOCALHOST,line, null)).start();
+    					output.println(CONNECTION_KEEP);
+    					break;
+    				default:
+    					output.println(CONNECTION_KEEP);
+    					break;
+    				}
+            	case GET_SERIE:
+            		line = input.readLine();
+            		Datenbank.hinzufuegen_serie(line);
+            		output.println(ACTION_COMPLETE);
             		break;
             	case CONNECTION_ACCEPTED:
             		output.println(command);
