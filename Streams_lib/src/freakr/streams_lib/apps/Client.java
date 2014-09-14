@@ -113,18 +113,20 @@ public class Client implements Runnable,Streams_lib {
             	case GET_NEW_SERIE:
             		switch(setup_choice){
     				case 1:
-    					new Thread(new Client(setup_android,LOCALHOST,line, null)).start();
+    					new Thread(new Client(setup_android,ihost.getHostName(),GET_NEW_SERIE, null)).start();
     					output.println(CONNECTION_KEEP);
     					break;
     				case 2:
-    					new Thread(new Client(setup_pc,LOCALHOST,line, null)).start();
+    					new Thread(new Client(setup_pc,ihost.getHostName(),GET_NEW_SERIE, null)).start();
     					output.println(CONNECTION_KEEP);
     					break;
     				default:
     					output.println(CONNECTION_KEEP);
     					break;
     				}
+            		break;
             	case GET_SERIE:
+            		output.println(GET_SERIE);
             		line = input.readLine();
             		Datenbank.hinzufuegen_serie(line);
             		output.println(ACTION_COMPLETE);
